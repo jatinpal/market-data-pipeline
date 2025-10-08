@@ -1,0 +1,14 @@
+{
+  "tickers": [
+    {"symbol": "AAPL", "name": "Apple Inc."},
+    {"symbol": "MSFT", "name": "Microsoft Corporation"},
+    {"symbol": "GOOGL", "name": "Alphabet Inc."},
+    {"symbol": "AMZN", "name": "Amazon.com, Inc."},
+    {"symbol": "NVDA", "name": "NVIDIA Corporation"},
+    {"symbol": "TSLA", "name": "Tesla, Inc."},
+    {"symbol": "SPY", "name": "SPDR S&P 500 ETF"},
+    {"symbol": "JPM", "name": "JPMorgan Chase & Co."},
+    {"symbol": "JNJ", "name": "Johnson & Johnson"},
+    {"symbol": "GE", "name": "General Electric Company"}
+  ]
+}
