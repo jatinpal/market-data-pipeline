@@ -4,9 +4,6 @@ from pathlib import Path
 from datetime import datetime
 import argparse
 
-ticker_list_path = "./tickers.json"
-data_extract_path = "./data/raw/"
-
 def load_tickers(in_path):
     
     try:
@@ -45,7 +42,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Extract market data")
     parser.add_argument("--path_tickers", default="./tickers.json", help="Path for the ticker list")
-    parser.add_argument("--path_extract", default=f"./data/raw/{datetime.now().strftime("%Y-%m-%d")}", help="Path for extracted raw data")
+    parser.add_argument("--path_extract", default="./data/raw/", help="Path for extracted raw data")
     parser.add_argument("--business_date", default=datetime.now().strftime("%Y-%m-%d"), help="Business date for data extract")
 
     args = parser.parse_args()
@@ -54,10 +51,10 @@ if __name__ == "__main__":
     extract_arg = args.path_extract
     date_arg = args.business_date
     
-    print(f"Loading data for tickers...")
+    print(f"Loading data for tickers from {ticker_arg} ...")
     tickers = load_tickers(ticker_arg)
-    print(f"Loaded data for {len(tickers)} tickers.")
+    print(f"Loaded data for {len(tickers)} tickers")
 
-    print(f"Saving ticker data for {date_arg}...")
+    print(f"Saving ticker data for {date_arg} ...")
     save_data(extract_arg, tickers, date_arg)
-    print(f"Saved ticker data for {date_arg}.")
+    print(f"Saved ticker data for {date_arg} at {extract_arg}")
