@@ -1,4 +1,4 @@
 # .gitignore
 
 # Ignore the local data folder
-./data/
+data/
