@@ -1,0 +1,30 @@
+[0m21:35:38.941548 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023A93CF5940>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023A949F51D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023A9614BED0>]}
+
+
+============================== 21:35:38.948567 | 71b800be-6d3e-4745-a530-8b71d4ed0629 ==============================
+[0m21:35:38.948567 [info ] [MainThread]: Running with dbt=1.11.0-b3
+[0m21:35:38.949195 [debug] [MainThread]: running dbt with arguments {'partial_parse': 'True', 'write_json': 'True', 'send_anonymous_usage_stats': 'True', 'use_colors': 'True', 'cache_selected_only': 'False', 'target_path': 'None', 'warn_error': 'None', 'invocation_command': 'dbt init market_data_dbt', 'log_format': 'default', 'version_check': 'True', 'introspect': 'True', 'debug': 'False', 'printer_width': '80', 'fail_fast': 'False', 'no_print': 'None', 'empty': 'None', 'use_experimental_parser': 'False', 'quiet': 'False', 'log_cache_events': 'False', 'log_path': 'logs', 'indirect_selection': 'eager', 'profiles_dir': 'C:\\Users\\jatin\\.dbt', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True'}
+[0m21:35:38.966431 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\jatin\.dbt
+[0m21:35:38.969278 [debug] [MainThread]: Starter project path: C:\Users\jatin\Work\Fall2025\Daily Market Data Analytics Pipeline\market_data_pipeline\Lib\site-packages\dbt\include\starter_project
+[0m21:35:39.012657 [info ] [MainThread]: 
+Your new dbt project "market_data_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m21:35:39.013515 [info ] [MainThread]: Setting up your profile.
+[0m21:37:56.680315 [info ] [MainThread]: Profile market_data_dbt written to C:\Users\jatin\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m21:37:56.681780 [debug] [MainThread]: Command `dbt init` succeeded at 21:37:56.681659 after 137.89 seconds
+[0m21:37:56.682115 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023AC9CD23F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023AC9CF5A30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023AC9CC5040>]}
+[0m21:37:56.682428 [debug] [MainThread]: Flushing usage events
+[0m21:37:57.106143 [debug] [MainThread]: An error was encountered while trying to flush usage events
