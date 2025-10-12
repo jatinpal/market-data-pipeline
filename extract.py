@@ -1,7 +1,7 @@
 import yfinance as yf
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 import argparse
 
 def load_tickers(in_path):
@@ -20,18 +20,22 @@ def save_data(out_path, tickers, business_date):
     directory = Path(f"{out_path}/{business_date}")
     directory.mkdir(parents=True, exist_ok=True)
 
+    start_date = datetime.strptime(business_date, "%Y-%m-%d")
+    next_day = start_date + timedelta(days=1)
+    next_day = next_day.strftime("%Y-%m-%d")
+
     for ticker in tickers:
         try:
             print(f"Fetching {ticker}...")
             t_data = yf.Ticker(ticker)
-            hist = t_data.history(period="1d")
+            hist = t_data.history(start=start_date, end=next_day)
             
             if hist.empty:
                 print(f"Warning: No data for {ticker}")
                 continue
             
             save_file = Path(f"{directory}/{ticker}.json")
-            hist.to_json(save_file, orient='records', date_format='iso', indent=2)
+            hist.reset_index().to_json(save_file, orient='records', date_format='iso', lines=True)
             print(f"Success: {ticker}")
             
         except Exception as e:
