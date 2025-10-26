@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: dim_tickers
+    description: "Dimension table containing unique ticker symbols"
+    columns:
+      - name: ticker
+        description: "Stock ticker symbol"
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_market_daily
+    description: "Fact table with daily OHLCV market data"
+    columns:
+      - name: market_daily_key
+        description: "Primary key: ticker_date"
+        tests:
+          - unique
+          - not_null
+      - name: close_price
+        description: "Closing price"
+        tests:
+          - not_null
+      - name: volume
+        description: "Trading volume"
+        tests:
+          - not_null

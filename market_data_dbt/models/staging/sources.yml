@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: market-data-pipeline-alpha
+    schema: raw_data
+    tables:
+      - name: aapl_raw
+        description: "Raw daily market data from yfinance for AAPL"

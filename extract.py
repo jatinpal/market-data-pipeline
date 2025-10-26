@@ -17,7 +17,7 @@ def load_tickers(in_path):
 
 def save_data(out_path, tickers, business_date):
 
-    directory = Path(f"{out_path}/{business_date}")
+    directory = Path(f"{out_path}/raw/{business_date}")
     directory.mkdir(parents=True, exist_ok=True)
 
     start_date = datetime.strptime(business_date, "%Y-%m-%d")
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Extract market data")
     parser.add_argument("--path_tickers", default="./tickers.json", help="Path for the ticker list")
-    parser.add_argument("--path_extract", default="./data/raw/", help="Path for extracted raw data")
+    parser.add_argument("--path_extract", default="./data/", help="Path for extracted raw data")
     parser.add_argument("--business_date", default=datetime.now().strftime("%Y-%m-%d"), help="Business date for data extract")
 
     args = parser.parse_args()
