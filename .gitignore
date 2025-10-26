@@ -1,4 +1,37 @@
 # .gitignore
 
-# Ignore the local data folder
+# Data outputs (don't commit)
 data/
+logs/
+
+# Python environment
+market_data_pipeline/  # If this is your venv
+venv/
+env/
+__pycache__/
+*.pyc
+*.py[cod]
+
+# dbt generated files
+market_data_dbt/target/
+market_data_dbt/dbt_packages/
+market_data_dbt/logs/
+
+# Credentials
+*.key
+*-key.json
+service-account*.json
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+#Documents
+dev-steps.docx
+project-plan.docx
