@@ -13,9 +13,9 @@ __pycache__/
 *.py[cod]
 
 # dbt generated files
-market_data_dbt/target/
-market_data_dbt/dbt_packages/
-market_data_dbt/logs/
+dbt/market_data_dbt/target/
+dbt/market_data_dbt/dbt_packages/
+dbt/market_data_dbt/logs/
 
 # Credentials
 *.key
