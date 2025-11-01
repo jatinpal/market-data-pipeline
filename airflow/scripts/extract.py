@@ -4,6 +4,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import argparse
 from google.cloud import storage
+import pandas as pd
 
 def load_tickers(in_path):
     try:
@@ -26,15 +27,15 @@ def upload_to_gcs(local_file, bucket_name, gcs_path):
     except Exception as e:
         print(f"  GCS Upload Error: {e}")
         return False
-
-def save_data(out_path, tickers, business_date, upload_gcs=False, bucket_name=None):
-    directory = Path(f"{out_path}/{business_date}")
-    directory.mkdir(parents=True, exist_ok=True)
-
+    
+def fetch_and_combine_data(tickers, business_date):
+    """Fetch data for all tickers and combine into single DataFrame"""
     start_date = datetime.strptime(business_date, "%Y-%m-%d")
     next_day = start_date + timedelta(days=1)
-    next_day = next_day.strftime("%Y-%m-%d")
-
+    next_day_str = next_day.strftime("%Y-%m-%d")
+    
+    all_data = []
+    
     for ticker in tickers:
         try:
             print(f"Fetching {ticker}...")
@@ -45,19 +46,52 @@ def save_data(out_path, tickers, business_date, upload_gcs=False, bucket_name=No
                 print(f"Warning: No data for {ticker}")
                 continue
             
-            # Save locally
-            save_file = Path(f"{directory}/{ticker}.json")
-            hist.reset_index().to_json(save_file, orient='records', date_format='iso', lines=True)
-            print(f"Success: {ticker}")
+            # Add ticker column and reset index
+            hist = hist.reset_index()
+            hist['Ticker'] = ticker
             
-            # Upload to GCS if enabled
-            if upload_gcs and bucket_name:
-                gcs_path = f"raw/price/{business_date}/{ticker}.json"
-                upload_to_gcs(save_file, bucket_name, gcs_path)
+            all_data.append(hist)
+            print(f"Success: {ticker}")
             
         except Exception as e:
             print(f"Failure: {ticker} Error: {e}")
             continue
+    
+    if not all_data:
+        print("Error: No data fetched for any ticker")
+        return None
+    
+    # Combine all DataFrames
+    combined_df = pd.concat(all_data, ignore_index=True)
+    
+    # Standardize column names (replace spaces with underscores)
+    combined_df.columns = combined_df.columns.str.replace(' ', '_')
+    
+    # Fill missing columns with None/null
+    # This handles cases where some tickers have columns others don't
+    
+    return combined_df
+
+def save_data(out_path, tickers, business_date, upload_gcs=False, bucket_name=None):
+    """Fetch data and save as single JSON file"""
+    combined_df = fetch_and_combine_data(tickers, business_date)
+
+    if combined_df is None:
+        return
+
+    directory = Path(f"{out_path}")
+    directory.mkdir(parents=True, exist_ok=True)
+
+     # Save as single file: YYYY-MM-DD.json
+    save_file = directory / f"{business_date}.json"
+    combined_df.to_json(save_file, orient='records', date_format='iso', lines=True)
+    print(f"\nSaved combined data: {save_file}")
+    print(f"Total rows: {len(combined_df)}")
+    
+    # Upload to GCS if enabled
+    if upload_gcs and bucket_name:
+        gcs_path = f"raw/price/{business_date}.json"
+        upload_to_gcs(save_file, bucket_name, gcs_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract market data")
@@ -69,9 +103,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    print(f"Loading data for tickers from {args.path_tickers}...")
+    print(f"Loading tickers from {args.path_tickers}...")
     tickers = load_tickers(args.path_tickers)
-    print(f"Loaded data for {len(tickers)} tickers")
+    print(f"Loaded {len(tickers)} tickers")
 
     print(f"Saving ticker data for {args.business_date}...")
     save_data(args.path_extract, tickers, args.business_date, args.upload_gcs, args.gcs_bucket)
