@@ -5,5 +5,20 @@ sources:
     database: market-data-pipeline-alpha
     schema: raw_data
     tables:
-      - name: aapl_raw
-        description: "Raw daily market data from yfinance for AAPL"
+      - name: market_data_raw
+        description: "Raw daily market data for all tickers combined"
+        columns:
+          - name: Date
+            description: "Trading date"
+          - name: Ticker
+            description: "Stock ticker symbol"
+          - name: Open
+            description: "Opening price"
+          - name: High
+            description: "Highest price"
+          - name: Low
+            description: "Lowest price"
+          - name: Close
+            description: "Closing price"
+          - name: Volume
+            description: "Trading volume"

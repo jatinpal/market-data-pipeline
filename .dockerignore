@@ -1,0 +1,16 @@
+# Exclude from Docker build context
+data/
+logs/
+*.pyc
+__pycache__/
+.git/
+.gitignore
+README.md
+requirements-local.txt
+dbt/market_data_dbt/target/
+dbt/market_data_dbt/logs/
+dbt/market_data_dbt/dbt_packages/
+.env
+*.key
+*-key.json
+setup-instructions.md

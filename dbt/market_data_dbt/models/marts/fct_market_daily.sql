@@ -8,5 +8,7 @@ SELECT
     close_price,
     volume,
     dividends,
-    stock_splits
+    stock_splits,
+    capital_gains
 FROM {{ ref('stg_daily_prices') }}
+ORDER BY date, ticker
